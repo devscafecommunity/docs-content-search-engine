@@ -52,6 +52,8 @@ async function fetchFileInfo(owner, repo, file, githubToken) {
         revision: file.revision,
         description: file.description,
         tags: file.tags,
+        author: file.author,
+        image: file.image,
     }
 
     return fileInfoObject;
