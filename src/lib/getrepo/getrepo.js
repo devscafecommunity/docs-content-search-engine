@@ -17,6 +17,7 @@ async function fetchPathsJson(owner, repo, fileNameToFind, githubToken) {
     let paths = JSON.parse(decodeBase64(pathsJson.content));
     let foundPaths = [];
 
+
     function findFile(paths) {
         paths.directories.forEach((directory) => {
             if (directory.content.files.length > 0) {
@@ -30,7 +31,7 @@ async function fetchPathsJson(owner, repo, fileNameToFind, githubToken) {
                     let regex = new RegExp(`^${escapedFileNameToFind}`, 'i');
 
                     if (regex.test(file.name)) {
-                        foundPaths.push(file.path);
+                        foundPaths.push(file);
                     }
                 });
             }
@@ -68,11 +69,12 @@ async function fetchAllPaths(owner, repo, githubToken){
     let paths = JSON.parse(decodeBase64(pathsJson.content));
     let foundPaths = [];
 
+
     function findFile(paths) {
         paths.directories.forEach((directory) => {
             if (directory.content.files.length > 0) {
                 directory.content.files.forEach((file) => {
-                    foundPaths.push(file.path);
+                    foundPaths.push(file);
                 });
             }
             if (directory.content.directories.length > 0) {
@@ -84,7 +86,7 @@ async function fetchAllPaths(owner, repo, githubToken){
     findFile(paths);
 
     let finalPaths = [];
-    
+
     if (foundPaths.length > 0) {
         foundPaths.forEach((path) => {
             finalPaths.push(path);

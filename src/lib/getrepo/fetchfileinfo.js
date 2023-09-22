@@ -23,8 +23,8 @@ function decodeBase64(data) {
     return buff.toString('ascii');
 }
 
-async function fetchFileInfo(owner, repo, path, githubToken) {
-    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+async function fetchFileInfo(owner, repo, file, githubToken) {
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${file.path}`;
 
     let response = await fetch(apiUrl, {
         headers: {
@@ -34,6 +34,7 @@ async function fetchFileInfo(owner, repo, path, githubToken) {
 
     let fileInfo = await response.json();
     let decodedContent = decodeBase64(fileInfo.content);
+
     let fileInfoObject = {
         name: fileInfo.name,
         path: fileInfo.path,
@@ -44,6 +45,13 @@ async function fetchFileInfo(owner, repo, path, githubToken) {
         download_url: fileInfo.download_url,
         type: fileInfo.type,
         content: decodedContent,
+
+        // Metadata
+        last_modified: file.lastModified,
+        emmiter: file.emmiter,
+        revision: file.revision,
+        description: file.description,
+        tags: file.tags,
     }
 
     return fileInfoObject;
