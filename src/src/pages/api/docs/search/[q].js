@@ -11,4 +11,5 @@ export default async function handler(req, res) {
     let repo = process.env.GITHUB_REPO;
     let results = await search(owner, repo, query, githubToken);
     res.status(200).json(results);
+
 }
