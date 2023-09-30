@@ -36,7 +36,7 @@ export default async function rawcanvas(
 
     // Load image from path
     // const rawcanvas = await loadImage('').
-    let base_image = await loadImage("./public/blogcontent/blog_preview_canvas.png");
+    let base_image = await loadImage("https://cafe-content.vercel.app/blogcontent/blog_preview_canvas.png");
     context.drawImage(base_image, 0, 0, width, height);
 
     // Date (Bottom left)
