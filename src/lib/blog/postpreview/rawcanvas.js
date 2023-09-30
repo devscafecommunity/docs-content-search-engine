@@ -50,12 +50,12 @@ export default async function rawcanvas(
     context.fillText(author, 560, 875);
 
     // Title (Center)
-    context.font = "bold 75px Arial";
+    context.font = "bold 50px Arial";
     context.fillStyle = "#5b352c";
     context.fillText(supressTitile(title), 400, 290);
 
     // Description (Center little bit down)
-    context.font = "bold 50px Arial";
+    context.font = "bold 40px Arial";
     context.fillStyle = "#5b352c";
     context.fillText(supressDescription(description), 400, 360);
 
