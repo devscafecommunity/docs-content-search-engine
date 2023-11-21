@@ -19,16 +19,41 @@ Response:
 ]
 */ 
 
+// export default async function handler(req, res) {
+//     // const { post } = req.query; // post slug
+//     // const posts = await fetch(process.env.BLOG_URL + '/api/posts/getallposts');
+//     // const data = await posts.json();
+//     // const postdata = data.find((postdata) => postdata.slug === post);
+//     // console.log(postdata);
+//     // const buffer = await rawcanvas(
+//     //     postdata.title,
+//     //     postdata.description,
+//     //     // `https://blog.devscafe.pt${postdata.image}`,
+//     //     `${process.env.BLOG_URL}${postdata.image}`,
+//     //     postdata.author,
+//     //     postdata.date
+//     // );
+
+//     // res.setHeader('Content-Type', 'image/png');
+//     // res.status(200).send(buffer);
+
+//     // const { post } = req.query; // post slug
+//     const posts = await fetch(process.env.BLOG_URL + '/api/posts/getallposts');
+
+//     res.status(200).send(posts);
+// }
+
 export default async function handler(req, res) {
     const { post } = req.query; // post slug
-    const posts = await fetch('https://devscafeblog.vercel.app/api/posts/getallposts');
+    const posts = await fetch(process.env.BLOG_URL + '/api/posts/getallposts');
     const data = await posts.json();
     const postdata = data.find((postdata) => postdata.slug === post);
-
+    console.log(postdata);
     const buffer = await rawcanvas(
         postdata.title,
         postdata.description,
-        `https://devscafeblog.vercel.app${postdata.image}`,
+        // `https://blog.devscafe.pt${postdata.image}`,
+        `${process.env.BLOG_URL}${postdata.image}`,
         postdata.author,
         postdata.date
     );

@@ -13,6 +13,10 @@ function supressDescription(input) {
   else return input;
 }
 
+function supressAuthor(input) {
+  if (input.length > 10) return input.slice(0, 12) + "...";
+  else return input;
+}
 // 400x400 (1:1)
 // image rounded 100% 
 // just return the buffe of rounded image with no background (transparent)
@@ -29,40 +33,45 @@ export default async function rawcanvas(
   author,
   date
 ) {
-    const width = 1920;
-    const height = 1080;
+    // const width = 1920; 
+    // const height = 1080;
+    // new less size for fit in the blog previews : 400x400
+    const width = 400;
+    const height = 400;
+
     const canvas = createCanvas(width, height);
     const context = canvas.getContext("2d");
 
     // Load image from path
     // const rawcanvas = await loadImage('').
-    let base_image = await loadImage("https://cafe-content.vercel.app/blogcontent/blog_preview_canvas.png");
+    let base_image = await loadImage(process.env.SELF_URL + "/blogcontent/blog_preview_canvas.png");
     context.drawImage(base_image, 0, 0, width, height);
 
     // Date (Bottom left)
-    context.font = "bold 25px Arial";
+    context.font = "bold 15px Arial";
     context.fillStyle = "#5b352c";
-    context.fillText(date, 270, 875);
+    context.fillText(date, 314, 81);
 
     // Author (Bottom left + px)
-    context.font = "bold 25px Arial";
+    context.font = "bold 15px Arial";
     context.fillStyle = "#5b352c";
-    context.fillText(author, 560, 875);
+    // context.fillText(author, 170, 81);
+    context.fillText(supressAuthor(author), 170, 81);
 
     // Title (Center)
-    context.font = "bold 50px Arial";
+    context.font = "bold 17px Arial";
     context.fillStyle = "#5b352c";
-    context.fillText(supressTitile(title), 400, 290);
+    context.fillText(supressTitile(title), 70, 360);
 
     // Description (Center little bit down)
-    context.font = "bold 40px Arial";
+    context.font = "bold 12px Arial";
     context.fillStyle = "#5b352c";
-    context.fillText(supressDescription(description), 400, 360);
+    context.fillText(supressDescription(description), 70, 375);
 
     // Image (Center) from coverimage.js coverimage(url) return a buffer of the image
     let cibuffer = await coverimage(imageurl);
     let ci = await loadImage(cibuffer);
-    context.drawImage(ci, 1130, 540, 400, 400);
+    context.drawImage(ci, 120, 115, 200, 200);
 
     return canvas.toBuffer("image/png");
 }

@@ -1,15 +1,19 @@
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 
 export async function coverimage(url) {
-    const width = 400;
-    const height = 400;
+    const width = 200;
+    const height = 200;
     const canvas = createCanvas(width, height);
     const context = canvas.getContext("2d");
 
     let image = await loadImage(url);
 
     context.beginPath();
-    context.arc(200, 200, 200, 0, Math.PI * 2, true);
+    // 200x200 (1:1)
+    // image rounded 100%
+    // just return the buffe of rounded image with no background (transparent)
+    context.arc(100, 100, 100, 0, Math.PI * 2, true);
+
     context.closePath();
     context.clip();
 
@@ -18,12 +22,8 @@ export async function coverimage(url) {
     context.shadowBlur = 10;
     context.shadowOffsetX = 0;
     context.shadowOffsetY = 0;
-    context.drawImage(image, 0, 0, 400, 400);
+    context.drawImage(image, 0, 0, width, height);
     context.restore();
-    // End Circle
-
-
-    // Draw the image
 
     return canvas.toBuffer("image/png");
 }
