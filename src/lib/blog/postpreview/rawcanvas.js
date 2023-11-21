@@ -48,23 +48,23 @@ export default async function rawcanvas(
     context.drawImage(base_image, 0, 0, width, height);
 
     // Date (Bottom left)
-    context.font = "bold 15px Arial";
+    context.font = "bold 12px Arial";
     context.fillStyle = "#5b352c";
     context.fillText(date, 314, 81);
 
     // Author (Bottom left + px)
-    context.font = "bold 15px Arial";
+    context.font = "bold 12px Arial";
     context.fillStyle = "#5b352c";
     // context.fillText(author, 170, 81);
     context.fillText(supressAuthor(author), 170, 81);
 
     // Title (Center)
-    context.font = "bold 17px Arial";
+    context.font = "bold 13px Arial";
     context.fillStyle = "#5b352c";
     context.fillText(supressTitile(title), 70, 360);
 
     // Description (Center little bit down)
-    context.font = "bold 12px Arial";
+    context.font = "bold 10px Arial";
     context.fillStyle = "#5b352c";
     context.fillText(supressDescription(description), 70, 375);
 
