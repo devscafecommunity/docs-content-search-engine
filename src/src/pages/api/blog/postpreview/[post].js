@@ -48,7 +48,6 @@ export default async function handler(req, res) {
     const posts = await fetch(process.env.BLOG_URL + '/api/posts/getallposts');
     const data = await posts.json();
     const postdata = data.find((postdata) => postdata.slug === post);
-    console.log(postdata);
     const buffer = await rawcanvas(
         postdata.title,
         postdata.description,
