@@ -31,7 +31,7 @@ export default async function rawcanvas(
   description,
   imageurl,
   author,
-  date
+  date // date format: "dd/mm/yyyy" recived forat: 2024-08-16T21:10:00.000Z use Date() to format
 ) {
     // const width = 1920; 
     // const height = 1080;
@@ -50,7 +50,8 @@ export default async function rawcanvas(
     // Date (Bottom left)
     context.font = "bold 12px Arial";
     context.fillStyle = "#5b352c";
-    context.fillText(date, 314, 81);
+    // context.fillText(date, 314, 81);
+    context.fillText(new Date(date).toLocaleDateString(), 314, 81);
 
     // Author (Bottom left + px)
     context.font = "bold 12px Arial";
