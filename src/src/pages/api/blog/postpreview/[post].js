@@ -75,11 +75,13 @@ podendo ser hospedadas em qualquer lugar sem a necessidade de serem hospedadas n
 
 export default async function handler(req, res) {
     const { post } = req.query; // post slug
-    const posts = await fetch(process.env.BLOG_URL + '/api/posts/getallposts');
+    const posts = await fetch('https://blog.devscafe.pt/api/posts/getallposts');
     const data = await posts.json();
 
-    const postdata = data.find((postdata) => postdata.slug.content === post);
+    const postdata = data.find((postdata) => postdata.slug === post);
 
+    console.log(postdata);
+    console.log("Antes")
     const buffer = await rawcanvas(
         postdata.title,
         postdata.description,
@@ -87,6 +89,7 @@ export default async function handler(req, res) {
         postdata.author,
         postdata.createdDate
     );
+    console.log("Depois")
 
     res.setHeader('Content-Type', 'image/png');
     res.status(200).send(buffer);
